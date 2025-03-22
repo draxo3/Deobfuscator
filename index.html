@@ -1,3 +1,4 @@
+do this:
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,21 +30,6 @@
             user-select: none;
             animation: snowfall linear infinite;
         }
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #0d0d0d;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-        }
-        .hidden {
-            display: none;
-        }
         .title {
             font-size: 60px;
             font-weight: bold;
@@ -62,6 +48,73 @@
             border-radius: 5px;
             cursor: pointer;
         }
+        .menu {
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            font-size: 30px;
+            cursor: pointer;
+        }
+        .menu-options {
+            display: none;
+            position: absolute;
+            top: 60px;
+            left: 20px;
+            background: #1a1a1a;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: left;
+        }
+        .menu-options a {
+            display: block;
+            padding: 10px;
+            color: white;
+            text-decoration: none;
+        }
+        .menu-options a:hover {
+            background: purple;
+        }
+        .info-section {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 50px;
+        }
+        .info-card {
+            background: transparent;
+            padding: 20px;
+            border-radius: 15px;
+            width: 200px;
+            border: 2px solid white;
+            position: relative;
+        }
+        .info-card p {
+            margin-top: 10px;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        .error {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .error button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .ui-image {
+            margin-top: 20px;
+            width: 300px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px white;
+            position: relative;
+        }
         .footer {
             position: absolute;
             bottom: 10px;
@@ -70,72 +123,23 @@
             font-size: 14px;
             opacity: 0.8;
         }
-        .footer a {
-            color: white;
-            text-decoration: none;
-        }
-        .cookie-panel {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #1a1a1a;
-            padding: 15px;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .cookie-panel button {
-            background: purple;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-            border-radius: 3px;
-        }
-        .menu {
-            position: absolute;
-            top: 20px;
-            left: 30px;
-            background: #1a1a1a;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            color: white;
-            border: 2px solid purple;
-        }
-        .menu-options {
-            display: none;
-            position: absolute;
-            top: 60px;
-            left: 30px;
-            background: #1a1a1a;
-            padding: 10px;
-            border-radius: 5px;
-            border: 2px solid purple;
-        }
-        .menu-options a {
-            display: block;
-            color: white;
-            text-decoration: none;
-            padding: 5px 0;
-        }
     </style>
 </head>
-<body onload="setTimeout(hideLoading, 2000)">
-    <div class="loading-screen" id="loading-screen">Loading...</div>
+<body>
     <script>
-        function hideLoading() {
-            document.getElementById("loading-screen").classList.add("hidden");
+        function createSnowflakes() {
+            const numFlakes = 50;
+            for (let i = 0; i < numFlakes; i++) {
+                let snowflake = document.createElement("div");
+                snowflake.classList.add("snowflake");
+                snowflake.innerHTML = "❄";
+                snowflake.style.left = Math.random() * 100 + "vw";
+                snowflake.style.animationDuration = (Math.random() * 5 + 5) + "s";
+                snowflake.style.opacity = Math.random();
+                document.body.appendChild(snowflake);
+            }
         }
-        function toggleMenu() {
-            var menu = document.getElementById("menu-options");
-            menu.style.display = menu.style.display === "block" ? "none" : "block";
-        }
-        function showError() {
-            alert("Not Available Atm");
-        }
+        createSnowflakes();
     </script>
     <div class="menu" onclick="toggleMenu()">☰</div>
     <div class="menu-options" id="menu-options">
@@ -143,19 +147,31 @@
         <a href="#" onclick="showError()">Purchase</a>
         <a href="#" onclick="showError()">Download</a>
     </div>
+    <button class="download-btn">Download</button>
     <h1 class="title">Moon</h1>
-    <button class="download-btn" onclick="showError()">Download</button>
     <br>
     <img src="UI.png" alt="UI Preview" class="ui-image">
-    <div class="cookie-panel" id="cookie-panel">
-        <p>This website uses cookies to enhance user experience.</p>
-        <button onclick="acceptCookies()">Accept</button>
+    <div class="info-section">
+        <div class="info-card"> Safe & Secure<p>Your data is protected with top-tier encryption.</p></div>
+        <div class="info-card"> Fast<p>Experience lightning-fast speeds with our service.</p></div>
+        <div class="info-card"> Free & Keyless<p>No keys required—just enjoy unlimited access.</p></div>
     </div>
+    <div class="error" id="error">
+        <p>Not Available Atm</p>
+        <button onclick="closeError()">Close</button>
+    </div>
+    <div class="footer">Powered by KZ</div>
     <script>
-        function acceptCookies() {
-            document.getElementById("cookie-panel").style.display = "none";
+        function toggleMenu() {
+            let menu = document.getElementById("menu-options");
+            menu.style.display = menu.style.display === "block" ? "none" : "block";
+        }
+        function showError() {
+            document.getElementById("error").style.display = "block";
+        }
+        function closeError() {
+            document.getElementById("error").style.display = "none";
         }
     </script>
-    <div class="footer"><a href="https://discord.gg/SJ6thr345r" target="_blank">Powered by KZ</a></div>
 </body>
 </html>
