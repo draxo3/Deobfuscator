@@ -4,25 +4,160 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moon</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Dark Background with Subtle Stars */
+        body {
+            background: #0d0d0d;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Starry Background Effect */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(1px 1px at 10% 20%, #fff, transparent),
+                        radial-gradient(1px 1px at 20% 80%, #fff, transparent),
+                        radial-gradient(1px 1px at 90% 30%, #fff, transparent),
+                        radial-gradient(1px 1px at 70% 50%, #fff, transparent);
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        /* Title (Big Text) */
+        .title {
+            font-size: 60px;
+            font-weight: bold;
+            text-shadow: 0 0 20px white;
+            margin-bottom: 10px;
+        }
+
+        /* Search Bar */
+        .search-bar {
+            padding: 10px;
+            width: 250px;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            background: #1a1a1a;
+            color: white;
+            font-size: 16px;
+        }
+
+        /* Download Button */
+        .download-btn {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            padding: 10px 20px;
+            background: purple;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .download-btn:hover {
+            background: #a32cc4;
+        }
+
+        /* Centered Info Section */
+        .info-section {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px 40px;
+            border-radius: 15px;
+            font-size: 20px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Product Section */
+        .product-section {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            width: 250px;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1);
+        }
+
+        .product-card img {
+            width: 100px;
+            margin-bottom: 15px;
+        }
+
+        .product-card p {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+    </style>
 </head>
 <body>
-    <header>
+
+    <!-- Download Button (Top Right) -->
+    <button class="download-btn">Download</button>
+
+    <!-- Header -->
+    <div class="header">
         <h1 class="title">Moon</h1>
         <input type="text" class="search-bar" placeholder="Search products...">
-        <button class="download-btn">Download</button>
-    </header>
+    </div>
 
-    <section class="info-section">
+    <!-- Info Section (Centered) -->
+    <div class="info-section">
         <div class="info-card">🔒 Safe & Secure</div>
         <div class="info-card">⚡ Fast</div>
         <div class="info-card">🆓 Free & Keyless</div>
-    </section>
+    </div>
 
-    <section class="product-section">
+    <!-- Product Section (Only 1 Month Key) -->
+    <div class="product-section">
         <div class="product-card">
             <img src="key-icon.png" alt="1 Month Key">
             <p>1 Month Key</p>
         </div>
-    </section>
+    </div>
 
+</body>
+</html>
