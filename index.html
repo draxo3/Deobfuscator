@@ -68,36 +68,35 @@
     </div>
 
     <script>
-        // Simple obfuscation function
+        // Function to encode HTML into base64
+        function encodeHtmlToBase64(input) {
+            return btoa(unescape(encodeURIComponent(input)));  // Encode HTML to Base64
+        }
+
+        // Function to decode base64 back to HTML
+        function decodeBase64ToHtml(input) {
+            return decodeURIComponent(escape(atob(input)));  // Decode Base64 back to HTML
+        }
+
+        // Obfuscate the HTML by encoding it into Base64
         function obfuscateHtml() {
             let input = document.getElementById("inputHtml").value;
+            
+            // Encode HTML content into Base64
+            let obfuscated = encodeHtmlToBase64(input);
 
-            // Remove whitespace and newlines to simulate obfuscation
-            let obfuscated = input.replace(/\s+/g, ' ').replace(/<!--.*?-->/g, '');
-
-            // Fake obfuscation: renaming HTML tag names with random characters
-            obfuscated = obfuscated.replace(/(<)(div|p|h1|h2|h3|span|a)(>)/g, (match, p1, p2, p3) => {
-                return p1 + p2.charAt(0) + Math.random().toString(36).substr(2, 5) + p3;
-            });
-
+            // Display the encoded base64 string
             document.getElementById("outputHtml").value = obfuscated;
         }
 
-        // A simple unobfuscation that tries to revert obfuscated tags and restore formatting
+        // Unobfuscate the Base64 string back to the original HTML
         function unobfuscateHtml() {
             let input = document.getElementById("inputHtml").value;
 
-            // Attempt to restore tag names to their original state
-            let unobfuscated = input.replace(/<([a-z]+)[a-z0-9]+>/g, (match, p1) => {
-                return `<${p1}>`;
-            });
+            // Decode the Base64 encoded string back to HTML
+            let unobfuscated = decodeBase64ToHtml(input);
 
-            // Basic restoration of whitespace (not perfect, but it helps)
-            unobfuscated = unobfuscated.replace(/\s+/g, ' ').trim();
-
-            // Restore the formatting (for example, add some new lines between tags)
-            unobfuscated = unobfuscated.replace(/(<\/?[a-z]+>)/g, '\n$1\n');
-
+            // Display the decoded HTML content
             document.getElementById("outputHtml").value = unobfuscated;
         }
     </script>
