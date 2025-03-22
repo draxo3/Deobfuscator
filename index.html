@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Obfuscator / Unobfuscator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 10px;
+            margin-top: 10px;
+            font-family: monospace;
+            font-size: 14px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>HTML Obfuscator / Unobfuscator</h1>
+        <textarea id="inputHtml" placeholder="Enter HTML code here..."></textarea>
+        <div>
+            <button onclick="obfuscateHtml()">Obfuscate</button>
+            <button onclick="unobfuscateHtml()">Unobfuscate</button>
+        </div>
+        <textarea id="outputHtml" placeholder="Output will appear here..." readonly></textarea>
+    </div>
+
+    <script>
+        // Simple obfuscation function
+        function obfuscateHtml() {
+            let input = document.getElementById("inputHtml").value;
+            
+            // Remove whitespace, newline, and add fake variable names for example purposes
+            let obfuscated = input.replace(/\s+/g, ' ').replace(/<!--.*?-->/g, '');
+            
+            // Fake obfuscation: renaming HTML tag names as an example
+            obfuscated = obfuscated.replace(/(<)(div|p|h1|h2|h3|span|a)(>)/g, (match, p1, p2, p3) => {
+                return p1 + p2.charAt(0) + Math.random().toString(36).substr(2, 5) + p3;
+            });
+
+            document.getElementById("outputHtml").value = obfuscated;
+        }
+
+        // A very basic unobfuscation attempt
+        function unobfuscateHtml() {
+            let input = document.getElementById("inputHtml").value;
+            
+            // Remove unnecessary spaces or lines for simplicity
+            let unobfuscated = input.replace(/\s+/g, ' ').trim();
+
+            // Reverse the fake obfuscation: revert the random names back
+            unobfuscated = unobfuscated.replace(/<([a-z]+)[a-z0-9]+>/g, (match, p1) => {
+                return `<${p1}>`;
+            });
+
+            document.getElementById("outputHtml").value = unobfuscated;
+        }
+    </script>
+</body>
+</html>
