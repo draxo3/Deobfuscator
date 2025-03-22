@@ -17,19 +17,17 @@
             text-align: center;
             overflow: hidden;
         }
-        .background-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 10%, transparent 50%);
-            animation: moveBackground 10s infinite linear;
+        @keyframes snowfall {
+            from { transform: translateY(0); }
+            to { transform: translateY(100vh); }
         }
-        @keyframes moveBackground {
-            0% { transform: translateX(0) translateY(0); }
-            50% { transform: translateX(-10px) translateY(-10px); }
-            100% { transform: translateX(0) translateY(0); }
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: white;
+            font-size: 12px;
+            user-select: none;
+            animation: snowfall linear infinite;
         }
         .title {
             font-size: 60px;
@@ -116,10 +114,32 @@
             box-shadow: 0 0 20px white;
             position: relative;
         }
+        .footer {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            font-size: 14px;
+            opacity: 0.8;
+        }
     </style>
 </head>
 <body>
-    <div class="background-animation"></div>
+    <script>
+        function createSnowflakes() {
+            const numFlakes = 50;
+            for (let i = 0; i < numFlakes; i++) {
+                let snowflake = document.createElement("div");
+                snowflake.classList.add("snowflake");
+                snowflake.innerHTML = "❄";
+                snowflake.style.left = Math.random() * 100 + "vw";
+                snowflake.style.animationDuration = (Math.random() * 5 + 5) + "s";
+                snowflake.style.opacity = Math.random();
+                document.body.appendChild(snowflake);
+            }
+        }
+        createSnowflakes();
+    </script>
     <div class="menu" onclick="toggleMenu()">☰</div>
     <div class="menu-options" id="menu-options">
         <a href="https://discord.gg/9XT2pJPRuc" target="_blank">Support</a>
@@ -139,6 +159,7 @@
         <p>Not Available Atm</p>
         <button onclick="closeError()">Close</button>
     </div>
+    <div class="footer">Powered by KZ</div>
     <script>
         function toggleMenu() {
             let menu = document.getElementById("menu-options");
